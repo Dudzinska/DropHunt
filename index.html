@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DropHunt – Śledź ceny i promocje</title>
+    <meta name="description" content="DropHunt to aplikacja mobilna na Androida do śledzenia cen i historii cen produktów z polskich sklepów internetowych.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="DropHunt – Śledź ceny i promocje">
+    <meta property="og:description" content="Aplikacja mobilna do śledzenia cen produktów i alertów o obniżkach.">
+    <meta property="og:type" content="website">
+    <!-- Favicon as Emoji SVG -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --border-color: #e2e8f0;
+            --muted-color: #64748b;
+            --badge-bg: #e0e7ff;
+            --badge-text: #3730a3;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0f172a;
+                --text-color: #f1f5f9;
+                --card-bg: #1e293b;
+                --primary-color: #818cf8;
+                --primary-hover: #6366f1;
+                --border-color: #334155;
+                --muted-color: #94a3b8;
+                --badge-bg: #312e81;
+                --badge-text: #e0e7ff;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        p.tagline {
+            font-size: 1.25rem;
+            color: var(--muted-color);
+            margin-bottom: 2rem;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: left;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            color: var(--muted-color);
+            font-size: 0.95rem;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            border-radius: 50%;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .affiliate-note {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            font-size: 0.85rem;
+            color: var(--muted-color);
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            color: var(--muted-color);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="badge">Projekt w przygotowaniu</div>
+        <h1>DropHunt</h1>
+        <p class="tagline">Śledź ceny, łap promocje i oszczędzaj na zakupach w polskich sklepach internetowych.</p>
+        <div class="cta-container">
+            <a href="#jak-to-dziala" class="btn">Dowiedz się więcej</a>
+            <a href="polityka-prywatnosci.html" class="btn btn-secondary">Polityka prywatności</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="jak-to-dziala">
+            <h2>Jak to działa?</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="step-number">1</div>
+                    <h3>Wklej link lub znajdź produkt</h3>
+                    <p>Skopiuj link do interesującego Cię produktu z ulubionego sklepu internetowego lub przeglądaj dostępne kategorie.</p>
+                </div>
+                <div class="card">
+                    <div class="step-number">2</div>
+                    <h3>Śledź historię cen</h3>
+                    <p>Aplikacja automatycznie sprawdza i zapisuje historię cen, dzięki czemu widzisz, czy obecna promocja to faktyczna okazja.</p>
+                </div>
+                <div class="card">
+                    <div class="step-number">3</div>
+                    <h3>Otrzymuj alerty</h3>
+                    <p>Ustaw próg cenowy i otrzymuj powiadomienia, gdy cena ulubionego produktu spadnie.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="funkcje">
+            <h2>Funkcje aplikacji</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>📈 Historia cen</h3>
+                    <p>Przejrzysty wykres przedstawiający wahania cen w czasie oraz informacja o najniższej i najwyższej cenie w historii.</p>
+                </div>
+                <div class="card">
+                    <h3>🔔 Inteligentne alerty</h3>
+                    <p>Powiadomienia push informujące o spadku ceny poniżej ustalonego przez Ciebie progu.</p>
+                </div>
+                <div class="card">
+                    <h3>⭐ Ulubione produkty</h3>
+                    <p>Wszystkie śledzone przez Ciebie przedmioty w jednym miejscu, z szybkim podglądem aktualnych cen.</p>
+                </div>
+                <div class="card">
+                    <h3>🛍️ Wiele sklepów</h3>
+                    <p>Wsparcie dla najpopularniejszych polskich sklepów z kategorii kosmetyków, ubrań, elektroniki i innych.</p>
+                </div>
+                <div class="card">
+                    <h3>🔒 Prywatność i offline</h3>
+                    <p>Twoje listy ulubionych i historia są zapisywane lokalnie na Twoim urządzeniu z dbałością o prywatność.</p>
+                </div>
+                <div class="card">
+                    <h3>🚀 Lekka i szybka</h3>
+                    <p>Nowoczesny interfejs w stylu Material 3 z pełnym wsparciem dla trybu ciemnego.</p>
+                </div>
+            </div>
+
+            <div class="affiliate-note">
+                <strong>Informacja o linkach afiliacyjnych:</strong> Niektóre linki prowadzące do sklepów internetowych w aplikacji mogą być linkami afiliacyjnymi. Oznacza to, że autorka/autor może otrzymać niewielką prowizję od zakupu, bez ponoszenia przez Ciebie jakichkolwiek dodatkowych kosztów. Wspiera to rozwój aplikacji.
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 DropHunt. Wszelkie prawa zastrzeżone.</p>
+        <p style="margin-top: 0.5rem;">Kontakt: <a href="mailto:klaudia.dudzinska@o2.pl">klaudia.dudzinska@o2.pl</a></p>
+        <div class="footer-links">
+            <a href="polityka-prywatnosci.html">Polityka prywatności</a>
+        </div>
+    </footer>
+
+</body>
+</html>
